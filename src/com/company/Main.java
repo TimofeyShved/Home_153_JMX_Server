@@ -19,5 +19,9 @@ public class Main {
         Thread.sleep(Long.MAX_VALUE);
 
         // путь к консоли сервера C:\Program Files\Microsoft\jdk-11.0.16.101-hotspot\bin\jconsole
+        // так же можно прописать программе вручную, некоторые данные, что-бы удобно было подключаться через удалённый доступ
+        // -Dcom.sun.management.jmxremote.port=9999
+        // -Dcom.sun.management.jmxremote.authenticate=false
+        // -Dcom.sun.management.jmxremote.ssl=false
     }
 }
