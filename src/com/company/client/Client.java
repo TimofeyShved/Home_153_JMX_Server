@@ -7,7 +7,11 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Client {
     public static void main(String[] args) throws IOException, MalformedObjectNameException, InstanceNotFoundException, InterruptedException {
@@ -31,6 +35,26 @@ public class Client {
         System.out.println(mbeanProxy.add(1,2));
         System.out.println(mbeanProxy.getName());
         System.out.println(mbeanProxy.returnPerson().getName());
+
+
+        // ------------------- Domains
+        // Выведем все доменные имена сервера
+        System.out.println("Domains:");
+        String domains[] = mbsc.getDomains();
+        Arrays.sort(domains);
+        for (String s: domains){
+            System.out.println("Domain = "+s);
+        }
+
+        System.out.println("MBean серверный по умолчанию (Domains) = " + mbsc.getDefaultDomain());
+        System.out.println("кол-во Domains: "+mbsc.getMBeanCount());
+
+        System.out.println("Запросы для сервера:");
+        Set<ObjectName> names = new TreeSet<ObjectName>(mbsc.queryNames(null, null));
+        for (ObjectName objectName: names){
+            System.out.println("ObjectName = "+objectName);
+        }
+
 
         // Закрываем соединение
         jmxConnector.close();
